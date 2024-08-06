@@ -9,4 +9,13 @@ export class UserService {
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {
         this.logger = new Logger(UserService.name);
     }
+
+    async findOne(query: any) {
+        return await this.userModel.findOne(query).select('+password');
+    }
+
+    async create(user: any): Promise<any> {
+        this.logger.log('Creating user.');
+        // const hashedPassword = await this.
+    }
 }
