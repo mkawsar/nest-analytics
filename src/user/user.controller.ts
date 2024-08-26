@@ -12,7 +12,6 @@ export class UserController {
     @Post('create')
     async create(@Request() req): Promise<any> {
         const newUser = req.body;
-
         try {
             const query = { email: newUser.email };
             const isUser = await this.userService.findOne(query);
