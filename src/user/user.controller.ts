@@ -1,5 +1,6 @@
-import { ConflictException, Controller, Logger, Post, Request } from '@nestjs/common';
 import { UserService } from './user.service';
+import { ConflictException, Controller, Logger, Post, Request } from '@nestjs/common';
+
 
 @Controller('user')
 export class UserController {
@@ -19,7 +20,7 @@ export class UserController {
             const user = await this.userService.create(newUser);
             return user;
         } catch (err) {
-            
+            err;
         }
     }
 }
