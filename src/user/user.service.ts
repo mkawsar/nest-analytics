@@ -19,6 +19,10 @@ export class UserService {
         return await this.userModel.findOne(query).select('+password');
     }
 
+    async find(usersFilterQuery: FilterQuery<User>): Promise<User[]> {
+        return this.userModel.find({ usersFilterQuery });
+    }
+
     async create(user: any): Promise<any> {
         this.logger.log('Creating user.');
         if (user.facebookId || user.googleId) return this.userModel.create(user);
@@ -26,5 +30,17 @@ export class UserService {
         user.password = hashedPassword;
         const newUser = new this.userModel(user);
         return newUser.save();
+    }
+
+    async findOneAndUpdate(query: any, payload: any): Promise<User> {
+        this.logger.log('Updating User.');
+        return this.userModel.findOneAndUpdate(query, payload, {
+            new: true,
+            upsert: true,
+        });
+    }
+    
+    async findOneAndRemove(query: any): Promise<any> {
+        return this.userModel.findByIdAndDelete(query);
     }
 }
