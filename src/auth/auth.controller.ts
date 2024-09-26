@@ -1,10 +1,12 @@
+import { AuthService } from './auth.service';
+import { PostLoginDto } from './auth.decorator';
 import { LocalAuthGaurd } from './local-auth.gaurd';
-import { Controller, Post, Logger, Request, UseGuards } from '@nestjs/common';
+import { Controller, Post, Logger, Request, UseGuards, Body } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
     logger: Logger;
-    constructor() {
+    constructor(private readonly authService: AuthService) {
         this.logger = new Logger(AuthController.name);
     }
 
@@ -12,10 +14,10 @@ export class AuthController {
     @UseGuards(LocalAuthGaurd)
     async login(@Request() req): Promise<any> {
         try {
-            return req.user;
+            return this.authService.generateJwtToken(req.user);
         } catch (err) {
             throw err;
         }
     }
-    
+
 }

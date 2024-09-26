@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import { forwardRef, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 
@@ -6,7 +7,8 @@ import { forwardRef, Inject, Injectable, NotFoundException, UnauthorizedExceptio
 export class AuthService {
     constructor(
         @Inject(forwardRef(() => UserService))
-        private UserService: UserService
+        private UserService: UserService,
+        private jwtService: JwtService
     )
     {
 
@@ -42,5 +44,14 @@ export class AuthService {
             }).catch((err: any) => {
                 err;
             });
+    }
+
+    async generateJwtToken(user: any) {
+        const payload = {
+            email: user.email
+        };
+        return {
+            access_token: this.jwtService.sign(payload),
+        };
     }
 }
