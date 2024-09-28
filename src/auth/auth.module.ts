@@ -7,7 +7,6 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './auth.controller';
 import { Module, forwardRef } from '@nestjs/common';
 
-
 @Module({
     imports: [
         JwtModule.register({

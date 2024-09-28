@@ -10,9 +10,7 @@ export class AuthService {
         private UserService: UserService,
         private jwtService: JwtService
     )
-    {
-
-    }
+    {}
 
     async getHashedPassword(password: string): Promise<any> {
         return new Promise((resolve, reject) => {
