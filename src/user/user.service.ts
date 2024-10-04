@@ -24,7 +24,6 @@ export class UserService {
     }
 
     async create(user: any): Promise<any> {
-        this.logger.log('Creating user.');
         if (user.facebookId || user.googleId) return this.userModel.create(user);
         const hashedPassword = await this.AuthService.getHashedPassword(user.password);
         user.password = hashedPassword;
