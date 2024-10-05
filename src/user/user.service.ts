@@ -16,7 +16,7 @@ export class UserService {
     }
 
     async findOne(query: any) {
-        return await this.userModel.findOne(query).select('+password');
+        return await this.userModel.findOne(query).select('-password');
     }
 
     async find(usersFilterQuery: FilterQuery<User>): Promise<User[]> {

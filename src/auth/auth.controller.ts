@@ -1,7 +1,8 @@
 import { AuthService } from './auth.service';
 import { PostLoginDto } from './auth.decorator';
+import { JwtAuthGaurd } from './jwt-auth.gaurd';
 import { LocalAuthGaurd } from './local-auth.gaurd';
-import { Controller, Post, Logger, Request, UseGuards, Body } from '@nestjs/common';
+import { Controller, Post, Logger, Request, UseGuards, Body, Get } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
@@ -19,4 +20,11 @@ export class AuthController {
             throw err;
         }
     }
+
+    @Get('view/profile')
+    @UseGuards(JwtAuthGaurd)
+    async getAuthUserProfile(@Request() req): Promise<any> {
+        return req.user;
+    }
+
 }
