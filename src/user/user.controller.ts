@@ -1,6 +1,6 @@
 import { UserService } from './user.service';
 import { UserCreateDto } from './user.decorator';
-import { ConflictException, Controller, Logger, Post, Body, HttpStatus, HttpException } from '@nestjs/common';
+import { Controller, Logger, Post, Body, HttpStatus, HttpException } from '@nestjs/common';
 
 
 @Controller('user')

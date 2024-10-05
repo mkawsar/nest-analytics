@@ -12,7 +12,7 @@ export class ALlExceptionsFilter implements ExceptionFilter {
         const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
         const errorResponse = {
             status: status,
-            message: exception instanceof HttpException ? (exception.getResponse() as any).message || exception.message : 'Internal server error',
+            message: exception instanceof HttpException ? (exception.getResponse() as any)?.message || exception.message : 'Internal server error',
             error: exception instanceof HttpException ? exception.name : 'InternalServerError',
             timestamp: new Date().toDateString(),
             path: request.url

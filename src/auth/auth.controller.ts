@@ -1,7 +1,7 @@
 import { AuthService } from './auth.service';
 import { PostLoginDto } from './auth.decorator';
 import { LocalAuthGaurd } from './local-auth.gaurd';
-import { Controller, Post, Logger, Request, UseGuards } from '@nestjs/common';
+import { Controller, Post, Logger, Request, UseGuards, Body } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
@@ -12,7 +12,7 @@ export class AuthController {
 
     @Post('login')
     @UseGuards(LocalAuthGaurd)
-    async login(@Request() req): Promise<any> {
+    async login(@Request() req, @Body() dto: PostLoginDto): Promise<any> {
         try {
             return this.authService.generateJwtToken(req.user);
         } catch (err) {
