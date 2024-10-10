@@ -26,5 +26,4 @@ export class AuthController {
     async getAuthUserProfile(@Request() req): Promise<any> {
         return req.user;
     }
-
 }
