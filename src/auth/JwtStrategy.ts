@@ -3,7 +3,6 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
 
-
 @Injectable()
 export class JwtStragtegy extends PassportStrategy(Strategy) {
     logger: Logger;
