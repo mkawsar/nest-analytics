@@ -9,8 +9,7 @@ export class UserService {
     logger: Logger
     constructor(
         @InjectModel(User.name) private userModel: Model<UserDocument>,
-        @Inject(forwardRef(() => AuthService))
-        private AuthService: AuthService
+        @Inject(forwardRef(() => AuthService)) private AuthService: AuthService
     ) {
         this.logger = new Logger(UserService.name);
     }
