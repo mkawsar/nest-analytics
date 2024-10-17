@@ -1,5 +1,7 @@
+import { GroupCreateDto } from './group.dto';
 import { GroupService } from './group.service';
-import { Controller, Logger, Post, Body, HttpStatus, HttpException } from '@nestjs/common';
+import { JwtAuthGaurd } from 'src/auth/jwt-auth.gaurd';
+import { Controller, Logger, Post, Body, HttpStatus, HttpException, UseGuards } from '@nestjs/common';
 
 @Controller('group')
 export class GroupController {
@@ -10,8 +12,9 @@ export class GroupController {
     }
 
     @Post('create')
-    async create(): Promise<any> {
-        return 'Hello world';
+    @UseGuards(JwtAuthGaurd)
+    async create(@Body() dto: GroupCreateDto): Promise<any> {
+        return dto;
     }
 }
 
