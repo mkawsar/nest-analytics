@@ -1,7 +1,7 @@
 import { GroupCreateDto } from './group.dto';
 import { GroupService } from './group.service';
 import { JwtAuthGaurd } from 'src/auth/jwt-auth.gaurd';
-import { Controller, Logger, Post, Body, HttpStatus, HttpException, UseGuards } from '@nestjs/common';
+import { Controller, Logger, Post, Body, HttpStatus, HttpException, UseGuards, Request } from '@nestjs/common';
 
 @Controller('group')
 export class GroupController {
@@ -13,8 +13,17 @@ export class GroupController {
 
     @Post('create')
     @UseGuards(JwtAuthGaurd)
-    async create(@Body() dto: GroupCreateDto): Promise<any> {
-        return dto;
+    async create(@Request() req, @Body() dto: GroupCreateDto): Promise<any> {
+        let obj = {
+            name: '',
+            admins: [],
+            members: []
+        };
+        obj.name = dto.name;
+        obj.admins.push(req.user);
+        obj.members.push(req.user);
+
+        return obj;
     }
 }
 
