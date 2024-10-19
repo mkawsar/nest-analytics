@@ -20,9 +20,10 @@ export class GroupController {
             members: []
         };
         obj.name = dto.name;
-        obj.admins.push(req.user);
-        obj.members.push(req.user);
+        obj.admins.push(req.user?.id);
+        obj.members.push(req.user?.id);
 
+        //const group = await this.groupService.create(dto);
         return obj;
     }
 }

@@ -9,5 +9,8 @@ export class GroupService {
         @InjectModel(Group.name) private groupModel: Model<Group>
     ) { }
 
-    
+    async create(dto: any): Promise<any> {
+        const group = new this.groupModel(dto);
+        return group.save();
+    }
 }
