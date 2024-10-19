@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ChatModule } from './chat/chat.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { SuccessResponseIntercptor } from './services/success.response.interceptor';
 
 @Module({
     imports: [
@@ -12,6 +14,11 @@ import { ChatModule } from './chat/chat.module';
         ChatModule
     ],
     controllers: [],
-    providers: []
+    providers: [
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: SuccessResponseIntercptor,
+        },
+    ]
 })
 export class AppModule {};
