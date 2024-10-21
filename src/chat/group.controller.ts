@@ -17,11 +17,13 @@ export class GroupController {
         const obj = {
             name: '',
             admins: [],
-            members: []
+            members: [],
+            creator: ''
         };
         obj.name = dto.name;
-        obj.admins.push(req.user);
-        obj.members.push(req.user);
+        obj.admins.push(req.user.id);
+        obj.members.push(req.user.id);
+        obj.creator = req.user.id;
 
         const group = await this.groupService.create(obj);
         return group;

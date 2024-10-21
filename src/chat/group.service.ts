@@ -1,14 +1,12 @@
 import { Model } from 'mongoose';
-import { Group } from './group.model';
-import { User } from 'src/user/user.model';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Group, GroupDocument } from './group.model';
 
 @Injectable()
 export class GroupService {
     constructor(
-        @InjectModel(Group.name) private groupModel: Model<Group>,
-        @InjectModel(User.name) private userModel: Model<User>
+        @InjectModel(Group.name) private readonly groupModel: Model<GroupDocument>
     ) { }
 
     async create(dto: any): Promise<any> {
@@ -17,7 +15,6 @@ export class GroupService {
     }
 
     async getOwnList(userID: string): Promise<Group[]> {
-        // const groups = await this.groupModel.find().where('members').in([userID]).populate("members").exec();
-        return this.groupModel.find().populate('admins').exec();;
+        return await this.groupModel.find().populate('creator', 'name').populate('members').exec();
     }
 }

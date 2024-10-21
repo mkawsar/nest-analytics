@@ -1,17 +1,23 @@
-// import { User } from 'src/user/user.model';
+import { User } from 'src/user/user.model';
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema()
+@Schema({
+    timestamps: true,
+    versionKey: false
+})
 export class Group {
     @Prop({ required: true })
     name: string;
 
-    @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }] })
-    members: Types.ObjectId[];
+    @Prop([{ type: Types.ObjectId, ref: User.name, autopopulate: true }])
+    members: User[];
 
-    @Prop({ type: [{ type: Types.ObjectId, ref: 'User' }] })
-    admins: Types.ObjectId[];
+    @Prop([{ type: Types.ObjectId, ref: User.name }])
+    admins: User[];
+
+    @Prop({ type: Types.ObjectId, ref: User.name })
+    creator: Types.ObjectId;
 }
 
 
