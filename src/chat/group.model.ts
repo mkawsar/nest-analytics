@@ -10,10 +10,10 @@ export class Group {
     @Prop({ required: true })
     name: string;
 
-    @Prop([{ type: Types.ObjectId, ref: User.name, autopopulate: true }])
+    @Prop({ type: [Types.ObjectId], ref: User.name, autopopulate: true })
     members: User[];
 
-    @Prop([{ type: Types.ObjectId, ref: User.name }])
+    @Prop({ type: [Types.ObjectId], ref: User.name })
     admins: User[];
 
     @Prop({ type: Types.ObjectId, ref: User.name })

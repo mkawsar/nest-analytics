@@ -15,6 +15,11 @@ export class GroupService {
     }
 
     async getOwnList(userID: string): Promise<Group[]> {
-        return await this.groupModel.find().populate('creator', 'name').populate('members').exec();
+        return await this.groupModel
+            .find({'members': {$in: [userID]}})
+            .populate('creator', 'name')
+            .populate('members', 'name email')
+            .populate('admins', 'name email')
+            .exec();
     }
-}
+}   

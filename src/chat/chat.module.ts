@@ -11,9 +11,9 @@ import { User, UserSchema } from 'src/user/user.model';
 @Module({
     imports: [
         MongooseModule.forFeature([
-            {name: Group.name, schema: GroupSchema},
+            { name: Group.name, schema: GroupSchema },
             { name: Message.name, schema: MessageSchema },
-            {name: User.name, schema: UserSchema}
+            { name: User.name, schema: UserSchema }
         ])
     ],
     controllers: [ChatController, GroupController],

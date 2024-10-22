@@ -2,7 +2,11 @@ import { User } from 'src/user/user.model';
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema()
+
+@Schema({
+    timestamps: true,
+    versionKey: false
+})
 export class Message {
     @Prop({ type: Types.ObjectId, ref: 'User', required: true })
     sender: User;
