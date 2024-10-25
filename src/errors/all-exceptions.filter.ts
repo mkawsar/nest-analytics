@@ -5,6 +5,8 @@ import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
     catch(exception: any, host: ArgumentsHost) {
+        console.log('err' ,exception);
+        
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
         const request = ctx.getRequest<Request>();
@@ -12,7 +14,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
         const errorResponse = {
             status: status,
-            message: exception instanceof HttpException ? (exception.getResponse() as any)?.message || exception.message : 'Internal server error',
+            message: exception.message,
             error: exception instanceof HttpException ? exception.name : 'InternalServerError',
             timestamp: new Date().toDateString(),
             path: request.url
