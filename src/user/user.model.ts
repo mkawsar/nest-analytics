@@ -1,9 +1,12 @@
 import * as bcrypt from 'bcrypt';
-import { Document } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 import { Role } from './enums/role.enum';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema()
+@Schema({
+    timestamps: true,
+    versionKey: false
+})
 export class User {
     @Prop({ required: true })
     name: string;
@@ -25,6 +28,6 @@ export class User {
     }
 }
 
-export type UserDocument = User & Document;
+export type UserDocument = HydratedDocument<User>;
 
 export const UserSchema = SchemaFactory.createForClass(User);

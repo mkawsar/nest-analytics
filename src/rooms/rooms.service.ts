@@ -15,4 +15,8 @@ export class RoomsService {
         const room = new this.roomModel(createRoomDto);
         return room.save();
     }
+
+    async getByRequest(userId: string) {
+        return await this.roomModel.find({ members: userId }).populate('members', 'name email').exec();
+    }
 }

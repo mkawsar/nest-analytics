@@ -1,7 +1,7 @@
 import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { JwtAuthGaurd } from 'src/auth/jwt-auth.gaurd';
-import { Controller, Logger, Request, Body, UseGuards, Post } from '@nestjs/common';
+import { Controller, Logger, Request, Body, UseGuards, Post, Get } from '@nestjs/common';
 
 @Controller('room')
 export class RoomsController {
@@ -14,9 +14,15 @@ export class RoomsController {
     @UseGuards(JwtAuthGaurd)
     async create(@Request() req, @Body() createRoomDto: CreateRoomDto): Promise<any> {
         try {
-            return await this.roomsService.create(req.user.id.toString(), createRoomDto);
+            return await this.roomsService.create(req.user.id, createRoomDto);
         } catch (err) {
             return err;
         }
+    }
+
+    @Get('request/list')
+    @UseGuards(JwtAuthGaurd)
+    getByRequest(@Request() req) {
+        return this.roomsService.getByRequest(req.user._id.toString());
     }
 }
