@@ -1,11 +1,11 @@
-import { faker } from '@faker-js/faker';
-import { UserService } from '../user.service';
-import { Injectable, Logger, forwardRef, Inject } from '@nestjs/common';
-import { Command, Positional } from 'nestjs-command';
-import { User } from '../user.model';
-import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { User } from '../user.model';
+import { faker } from '@faker-js/faker';
+import { Command } from 'nestjs-command';
+import { UserService } from '../user.service';
+import { InjectModel } from '@nestjs/mongoose';
 import { AuthService } from 'src/auth/auth.service';
+import { Injectable, Logger, forwardRef, Inject } from '@nestjs/common';
 
 @Injectable()
 export class UserSeeder {
@@ -31,7 +31,7 @@ export class UserSeeder {
             };
             const newUser = new this.userModel(obj);
             await newUser.save();
-            console.log('completed');
         }
+        console.log('User table seed');
     }
 }
