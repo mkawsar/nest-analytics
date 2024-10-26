@@ -4,8 +4,9 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SuccessResponseIntercptor } from './services/success.response.interceptor';
 import { RoomsModule } from './rooms/rooms.module';
+// import { SeederConsole } from './console/seeder.console';
+import { SuccessResponseIntercptor } from './services/success.response.interceptor';
 
 @Module({
     imports: [

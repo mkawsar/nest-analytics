@@ -8,7 +8,7 @@ import { Module, forwardRef } from '@nestjs/common';
 @Module({
     imports: [
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-        forwardRef(() => AuthModule),
+        forwardRef(() => AuthModule)
     ],
     controllers: [UserController],
     providers: [UserService],
