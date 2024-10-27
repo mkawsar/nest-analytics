@@ -19,7 +19,7 @@ export class UserService {
     }
 
     async find(usersFilterQuery: FilterQuery<User>): Promise<User[]> {
-        return this.userModel.find({ usersFilterQuery });
+        return this.userModel.find().exec();
     }
 
     async create(user: any): Promise<any> {
