@@ -2,6 +2,7 @@ import { FilterQuery, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './user.model';
 import { AuthService } from '../auth/auth.service';
+import { PaginationDto } from 'src/Shared/dto/pagination.dto';
 import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
@@ -18,8 +19,31 @@ export class UserService {
         return await this.userModel.findOne(query).select('-password');
     }
 
-    async find(usersFilterQuery: FilterQuery<User>): Promise<User[]> {
-        return this.userModel.find().exec();
+    async find(paginationDto: PaginationDto) {
+        const { page, limit, search } = paginationDto;
+        const skip = (page - 1) * limit;
+
+        const filter = search
+            ? {
+                $or: [
+                    { name: { $regex: search, $options: 'i' } }
+                ]
+            } : {};
+
+        const users = await this.userModel
+            .find(filter)
+            .sort({ name: 1 })
+            .skip(skip)
+            .limit(limit)
+            .exec();
+        const total = await this.userModel.countDocuments(filter);
+        return {
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
+            users,
+        }
     }
 
     async create(user: any): Promise<any> {

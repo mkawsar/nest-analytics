@@ -4,8 +4,8 @@ import { Roles } from 'src/auth/roles.decorator';
 import { UserCreateDto } from './user.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { JwtAuthGaurd } from 'src/auth/jwt-auth.gaurd';
-import { Controller, Logger, Post, Body, HttpStatus, HttpException, Get, UseGuards } from '@nestjs/common';
-import { User } from './user.model';
+import { Controller, Logger, Post, Body, HttpStatus, HttpException, Get, UseGuards, Query } from '@nestjs/common';
+import { PaginationDto } from 'src/Shared/dto/pagination.dto';
 
 
 @Controller('user')
@@ -32,8 +32,12 @@ export class UserController {
     @Roles(Role.Moderator, Role.Admin)
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGaurd)
-    async list(): Promise<User[]> {
-        let obj = {};
-        return this.userService.find(obj);
+    async list(@Query() paginationDto: PaginationDto) {
+        try {
+            return this.userService.find(paginationDto);
+        } catch(err) {
+            console.log(err);
+            return err;
+        }
     }
 }
