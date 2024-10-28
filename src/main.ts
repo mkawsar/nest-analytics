@@ -1,5 +1,6 @@
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import { AllExceptionsFilter } from './errors/all-exceptions.filter';
@@ -13,6 +14,8 @@ async function bootstrap() {
     .addTag('APIs')
     .build();
 
+    const configService = app.get(ConfigService);
+    const port = configService.get<number>('PORT') || 3000;
 
     app.useGlobalPipes(
         new ValidationPipe({
@@ -31,7 +34,7 @@ async function bootstrap() {
     app.useGlobalFilters(new AllExceptionsFilter());
     const documentFactory = () => SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api', app, documentFactory);
-    await app.listen(3000);
+    await app.listen(port);
 }
 
 bootstrap();
