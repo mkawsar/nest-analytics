@@ -2,7 +2,6 @@ import { Model } from 'mongoose';
 import { User } from '../user.model';
 import { faker } from '@faker-js/faker';
 import { Command } from 'nestjs-command';
-import { UserService } from '../user.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { AuthService } from 'src/auth/auth.service';
 import { Injectable, Logger, forwardRef, Inject } from '@nestjs/common';
@@ -12,8 +11,8 @@ export class UserSeeder {
     logger: Logger;
     constructor(
         @Inject(forwardRef(() => AuthService)) private AuthService: AuthService,
-        @InjectModel(User.name) private readonly userModel: Model<User>,
-        private readonly userService: UserService) {
+        @InjectModel(User.name) private readonly userModel: Model<User>)
+    {
         this.logger = new Logger(UserSeeder.name);
     }
 
@@ -24,7 +23,7 @@ export class UserSeeder {
             const random = Math.floor(Math.random() * roles.length);
             let obj = {
                 name: faker.person.fullName(),
-                username: faker.internet.userName().toLowerCase(),
+                username: faker.internet.username().toLowerCase(),
                 email : faker.internet.email().toLowerCase(),
                 role: roles[random],
                 password: await this.AuthService.getHashedPassword('123456')

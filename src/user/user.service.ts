@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './user.model';
 import { AuthService } from '../auth/auth.service';
-import { PaginationDto } from 'src/Shared/dto/pagination.dto';
+import { PaginationDto } from 'src/shared/dto/pagination.dto';
 import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
