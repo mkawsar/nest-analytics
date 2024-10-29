@@ -11,8 +11,8 @@ export class UserSeeder {
     logger: Logger;
     constructor(
         @Inject(forwardRef(() => AuthService)) private AuthService: AuthService,
-        @InjectModel(User.name) private readonly userModel: Model<User>)
-    {
+        @InjectModel(User.name) private readonly userModel: Model<User>
+    ) {
         this.logger = new Logger(UserSeeder.name);
     }
 
