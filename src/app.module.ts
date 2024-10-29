@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RoomsModule } from './rooms/rooms.module';
 import { SuccessResponseIntercptor } from './services/success.response.interceptor';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
     imports: [
@@ -15,7 +16,8 @@ import { SuccessResponseIntercptor } from './services/success.response.intercept
         }),
         UserModule,
         AuthModule,
-        RoomsModule
+        RoomsModule,
+        ChatModule
     ],
     controllers: [],
     providers: [
