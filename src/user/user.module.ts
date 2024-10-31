@@ -4,7 +4,7 @@ import { User, UserSchema } from './user.model';
 import { AuthModule } from '../auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserController } from './user.controller';
-import { UserSeeder } from './Seeders/user.seeder';
+import { UserSeeder } from './seeders/user.seeder';
 import { Module, forwardRef } from '@nestjs/common';
 
 @Module({
