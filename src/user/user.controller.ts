@@ -1,11 +1,10 @@
 import { Role } from './enums/role.enum';
 import { UserService } from './user.service';
-import { ConfigService } from '@nestjs/config';
 import { Roles } from 'src/auth/roles.decorator';
 import { UserCreateDto } from './user.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { JwtAuthGaurd } from 'src/auth/jwt-auth.gaurd';
-import { PaginationDto } from 'src/Shared/dto/pagination.dto';
+import { PaginationDto } from 'src/shared/dto/pagination.dto';
 import { Controller, Logger, Post, Body, HttpStatus, HttpException, Get, UseGuards, Query } from '@nestjs/common';
 
 
