@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
 import { Room } from './schemas/room.model';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateRoomDto } from './dto/create-room.dto';
 
@@ -12,6 +12,6 @@ export class RoomsService {
     
     async create(userID: string, createRoomDto: CreateRoomDto) {
         createRoomDto.members.push(userID);
-        const room = 
+        const room = '';
     }
 }
