@@ -38,7 +38,7 @@ export class RoomDocument {
         this.type = props.type;
 
         if (this.type == RoomType.PERSONAL) {
-            this.name = this.members.find((member: any) => member._id.toString() !== this._id.toString()).name
+            this.name = this.members.find((member: any) => member._id !== this._id).name
         }
     }
 };

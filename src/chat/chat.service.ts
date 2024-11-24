@@ -1,13 +1,22 @@
 import { Model } from 'mongoose';
-import { Group } from './group.model';
-import { Message } from './message.model';
-import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Injectable, Logger } from '@nestjs/common';
+import { CreateChatDto } from './dto/create-chat.dto';
+import { Message, MessageDocument } from './schemas/message.model';
 
 @Injectable()
 export class ChatService {
-    constructor(
-        @InjectModel(Message.name) private messageModel: Model<Message>,
-        @InjectModel(Group.name) private groupModel: Model<Group>
-    ) { }
+    logger: Logger;
+    constructor(@InjectModel(Message.name) private readonly messageModel: Model<MessageDocument>) {
+        this.logger = new Logger(ChatService.name);
+    }
+
+    async create(senderID: string, createChatDto: CreateChatDto): Promise<any> {
+        const createdChat = new this.messageModel({
+            ...createChatDto,
+            sender_id: senderID
+        });
+
+        return await createdChat.save();
+    }
 }

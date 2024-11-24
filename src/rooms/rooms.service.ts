@@ -10,8 +10,13 @@ export class RoomsService {
         @InjectModel(Room.name) private readonly roomModel: Model<Room>
     ) { }
     
-    async create(userID: string, createRoomDto: CreateRoomDto) {
+    async create(userID: string, createRoomDto: CreateRoomDto): Promise<any> {
         createRoomDto.members.push(userID);
-        const room = '';
+        const room = new this.roomModel(createRoomDto);
+        return room.save();
+    }
+
+    async getByRequest(userId: string) {
+        return await this.roomModel.find({ members: userId }).populate('members', 'name email').exec();
     }
 }
